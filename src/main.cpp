@@ -22,10 +22,13 @@ float curr = 0.0; // переменная для расчета напряжен
 
 // Чтение тока и напряжения
 
-#define PIN_TRANSITOR_MODULE_CHARGE 32 
-bool DiShargeState = false;
+#define PIN_TRANSITOR_MODULE_Charge 32 
+#define PIN_TRANSITOR_MODULE_DiCharge 18
 
-String inputString = "";         // a String to hold incoming data
+bool ShargeState = false;   // Переменный буль состояния открытости-закрытости транзистора открывающего цепь заряда
+bool DiShargeState = false; // Переменный буль состояния открытости-закрытости транзистора закрывающего цепь разряда
+
+String inputString = "";      // a String to hold incoming data
 bool stringComplete = false;  // whether the string is complete
 
 void SerialInput(); //Прототип
@@ -54,11 +57,11 @@ void setup(void)
     ads.begin();
   // Чтение тока и напряжения
 
-  pinMode(PIN_TRANSITOR_MODULE_CHARGE,OUTPUT); //Транзистор модуль ответственный за зарядку
-  digitalWrite(PIN_TRANSITOR_MODULE_CHARGE,HIGH); //Включаем его
+  pinMode(PIN_TRANSITOR_MODULE_Charge,OUTPUT); //Транзистор модуль ответственный за зарядку
+  digitalWrite(PIN_TRANSITOR_MODULE_Charge,ShargeState); //Включаем его
 
-  pinMode(18,OUTPUT); //Транзистор модуль ответственный за РАЗрядку
-  digitalWrite(18,DiShargeState); //Включаем его
+  pinMode(PIN_TRANSITOR_MODULE_DiCharge,OUTPUT); //Транзистор модуль ответственный за РАЗрядку
+  digitalWrite(PIN_TRANSITOR_MODULE_DiCharge,DiShargeState); //Включаем его
 }
 
 void loop(void)
